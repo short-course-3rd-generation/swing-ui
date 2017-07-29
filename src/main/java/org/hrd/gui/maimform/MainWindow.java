@@ -10,6 +10,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -20,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -41,7 +43,7 @@ public class MainWindow extends JFrame implements ActionListener,
 	private JLabel headerLabel;
 	private ImageIcon iconHeader;
 	
-	private JButton btnImageUpload;
+	private JButton btnImageUpload,btnshowinfo;
 	
 	///checkBoxs
 	private JCheckBox chJava,chC,chcPlusPlus;
@@ -55,7 +57,11 @@ public class MainWindow extends JFrame implements ActionListener,
 	private JTextArea tadesc;
 	
 	private JComboBox<String> country;
-	private String[] countryModel= {"Cambodia","ThiaLand","China","Japen","South Korea"};
+	private String[] countryModel= {"Cambodia","ThiaLand","China",
+			"Japen","South Korea","USA","UK","North Korea","Vetnam","Malaysi"};
+	
+	private JList<String> countryList;
+	
 	public MainWindow() {
 		//initials all objects
 		initializeVariables();
@@ -105,11 +111,16 @@ public class MainWindow extends JFrame implements ActionListener,
 		
 		this.controlPanel.add(this.country);
 	
+		this.countryList.setListData(this.countryModel);
+		
+		this.controlPanel.add(new JScrollPane(this.countryList));
+		
 		add(this.headerLabel,BorderLayout.NORTH);
 		add(this.controlPanel,BorderLayout.CENTER);
 		add(this.footerPanel,BorderLayout.SOUTH);
 		
 		this.btnImageUpload.addActionListener(this);
+		this.btnshowinfo.addActionListener(this);
 		//register event for checkBOx
 		this.chJava.addItemListener(this);
 		this.rdMale.addItemListener(this);
@@ -137,7 +148,8 @@ public class MainWindow extends JFrame implements ActionListener,
 		//this.btnImageUpload.
 		this.btnImageUpload.setHorizontalTextPosition(SwingConstants.LEFT);
 		this.controlPanel.add(this.btnImageUpload);
-		
+		this.btnshowinfo=new JButton("Show Info...");
+		this.controlPanel.add(this.btnshowinfo);
 		//checkBOxs
 		this.chJava=new JCheckBox("Java");
 		this.chC=new JCheckBox("C Program");
@@ -159,9 +171,11 @@ public class MainWindow extends JFrame implements ActionListener,
 		
 		//comBoBox
 		this.country=new JComboBox<String>(this.countryModel);
+		Insets marginlist=new Insets(0, 10, 0, 10);
+		this.countryList=new JList<String>();
+		this.countryList.setVisibleRowCount(3);
 		
 		this.footerPanel=new Footer();
-		
 		
 	}
 
@@ -194,6 +208,13 @@ public class MainWindow extends JFrame implements ActionListener,
 			}
 			
 			System.out.println(number);
+		}else if(e.getSource()==this.btnshowinfo) {
+			
+			List<String> countryListselected=this.countryList.getSelectedValuesList();
+			for(String s : countryListselected) {
+				System.out.print(s+" ");
+			}
+			
 		}
 	}
 
@@ -206,8 +227,6 @@ public class MainWindow extends JFrame implements ActionListener,
 			/*JOptionPane.showConfirmDialog(MainWindow.this, 
 					chJava.isSelected()== true ? chJava.getText().toString()+
 							" : checked" : chJava.getText().toString()  + ": unchecked");*/
-	
-			
 		}
 		
 		if(rdMale.isSelected())
@@ -215,7 +234,7 @@ public class MainWindow extends JFrame implements ActionListener,
 			
 		if(rdFemale.isSelected())
 			System.out.println(rdFemale.getText().toString());
-			
+		
 	}
 	
 	//KeyListener
