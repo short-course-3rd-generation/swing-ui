@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -15,21 +16,16 @@ import org.hrd.gui.model.Expert;
 public class ExpertTablePanel extends JPanel {
 	
 	private JTable ExpertTable;
-	//private List<Expert> list;
 	private ExpertTableModel tableModel;
-	
 	
 	public ExpertTablePanel() {
 		init();
 		initializeVariable();
 	}
-
-
 	private void initializeVariable() {
 		this.tableModel=new ExpertTableModel();
 		this.ExpertTable=new JTable(this.tableModel);
-		
-		add(this.ExpertTable, BorderLayout.CENTER);
+		add(new JScrollPane(this.ExpertTable), BorderLayout.CENTER);
 	}
 
 

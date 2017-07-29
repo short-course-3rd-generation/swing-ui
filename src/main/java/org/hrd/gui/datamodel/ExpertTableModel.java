@@ -20,9 +20,9 @@ public class ExpertTableModel extends AbstractTableModel{
 		return COLUMNS.length;
 	}
 
-	/*public String getColumnName(int column) {
+	public String getColumnName(int column) {
 		return COLUMNS[column];
-	}*/
+	}
 	
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
