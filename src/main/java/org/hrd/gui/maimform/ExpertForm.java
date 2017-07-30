@@ -1,17 +1,25 @@
 package org.hrd.gui.maimform;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.hrd.gui.model.Expert;
+import org.hrd.gui.resporsitiry.memory.ExpertMemoryReopistory;
 
-public class ExpertForm extends JFrame {
+public class ExpertForm extends JFrame implements ActionListener{
 
 	private ExpertTablePanel expertTable;
-	
+	private ExpertMemoryReopistory expertMemoryRepo;
+	private AddExpertForm addDialog;
+	private JPanel headPanel;
+	private JButton btnAdd;
 	public ExpertForm() {
 		init();
 		initializeVariables();
@@ -24,24 +32,25 @@ public class ExpertForm extends JFrame {
 	}
 
 	private void setDataModel() {
-		List<Expert> list= new ArrayList<Expert>();
-		for(int i=0;i<10;i++) {
-			list.add(new Expert(
-					i,
-					"Data"+ i,
-					"male",
-					"Java developer",
-					"Cambodia",
-					"your interest ....."
-					));
-		}
 		
-		this.expertTable.setDataModel(list);
-		
+		this.expertTable.setDataModel(this.expertMemoryRepo.getAll());
 	}
 
 	private void initializeVariables() {
+
+		this.expertTable=new ExpertTablePanel();
+		this.expertMemoryRepo=new ExpertMemoryReopistory();
+		this.btnAdd=new JButton("Add");
+		this.headPanel=new JPanel();
+		this.addDialog=new AddExpertForm();
+		
+		
+		this.headPanel.add(this.btnAdd);
+		
+		add(this.headPanel, BorderLayout.NORTH);
 		add(this.expertTable,BorderLayout.CENTER);
+		
+		this.btnAdd.addActionListener(this);
 	}
 
 	private void init() {
@@ -50,10 +59,13 @@ public class ExpertForm extends JFrame {
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
-		this.expertTable=new ExpertTablePanel();
 	}
 	
 	public static void main(String[] args) {
 		new ExpertForm().setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		addDialog.setVisible(true);
 	}
 }

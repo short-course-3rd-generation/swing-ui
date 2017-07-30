@@ -10,6 +10,7 @@ import org.hrd.gui.model.Expert;
 public class ExpertTableModel extends AbstractTableModel{
 
 	private List<Expert> expertList =new ArrayList<Expert>();
+	
 	private String[] COLUMNS={"Id","Name","Gender","Skill","Country","Personal Information"};
 	
 	public int getRowCount() {
