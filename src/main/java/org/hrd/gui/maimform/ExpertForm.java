@@ -10,10 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.hrd.gui.callback.FormRregisterListener;
 import org.hrd.gui.model.Expert;
+import org.hrd.gui.resporsitiry.memory.Database;
 import org.hrd.gui.resporsitiry.memory.ExpertMemoryReopistory;
 
-public class ExpertForm extends JFrame implements ActionListener{
+public class ExpertForm extends JFrame implements ActionListener,
+	FormRregisterListener {
 
 	private ExpertTablePanel expertTable;
 	private ExpertMemoryReopistory expertMemoryRepo;
@@ -23,27 +26,27 @@ public class ExpertForm extends JFrame implements ActionListener{
 	public ExpertForm() {
 		init();
 		initializeVariables();
-		setDataModel();
 		refreshTable();
+		setCallBack();
+	}
+
+	private void setCallBack() {
+		this.addDialog.setContext(this);
 	}
 
 	private void refreshTable() {
-		this.expertTable.updateDataModel();
-	}
-
-	private void setDataModel() {
-		
 		this.expertTable.setDataModel(this.expertMemoryRepo.getAll());
+		this.expertTable.updateDataModel();
+		System.out.println("refresh");
 	}
 
 	private void initializeVariables() {
 
 		this.expertTable=new ExpertTablePanel();
-		this.expertMemoryRepo=new ExpertMemoryReopistory();
+		this.expertMemoryRepo=Database.INSTANCE.getInstace();
 		this.btnAdd=new JButton("Add");
 		this.headPanel=new JPanel();
 		this.addDialog=new AddExpertForm();
-		
 		
 		this.headPanel.add(this.btnAdd);
 		
@@ -67,5 +70,9 @@ public class ExpertForm extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		addDialog.setVisible(true);
+	}
+
+	public void addExpertListener() {
+		refreshTable();
 	}
 }

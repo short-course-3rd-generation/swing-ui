@@ -27,9 +27,8 @@ public class ExpertMemoryReopistory {
 	}
 	
 	public void setExpert(Expert expert) {
-		if(expert!=null) {
-			this.list.add(expert);
-		}
+		this.list.add(expert);
+		System.out.println("List Size:" +list.size());
 	}
 	public Expert getOne(int id) {
 		for( Expert e : this.list) {

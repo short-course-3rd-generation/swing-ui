@@ -57,6 +57,12 @@ public class Expert {
 	public void setPersonalInfo(String personalInfo) {
 		this.personalInfo = personalInfo;
 	}
+
+	@Override
+	public String toString() {
+		return "Expert [id=" + id + ", name=" + name + ", gender=" + gender + ", skill=" + skill + ", country="
+				+ country + ", personalInfo=" + personalInfo + "]";
+	}
 	
 	
 }

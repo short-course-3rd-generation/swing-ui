@@ -1,8 +1,7 @@
-package org.hrd.gui.delegate;
+package org.hrd.gui.callback;
 
 public interface FormRregisterListener {
 
 	void addExpertListener();
-	Object setContext();
 	
 }
